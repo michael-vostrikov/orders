@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/app.conf:/etc/nginx/conf.d/app.conf
+    depends_on:
+      - php
+
+  db:
+    image: mysql:latest
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+
+  php:
+    build:
+      context: ./docker
+      dockerfile: ./Dockerfile-phpfpm
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www

@@ -1,0 +1,7 @@
+FROM php:7-fpm
+RUN docker-php-ext-install pdo_mysql
+WORKDIR /var/www
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
+WORKDIR /var/www/web
+CMD bash -c "/wait-for-it.sh -t 0 db:3306 -- echo && cd /var/www && php composer.phar install && vendor/bin/doctrine orm:schema-tool:drop --force && vendor/bin/doctrine orm:schema-tool:create && cd /var/www/web && exec php-fpm"
