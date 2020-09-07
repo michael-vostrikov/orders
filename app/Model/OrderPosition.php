@@ -24,6 +24,12 @@ class OrderPosition
      */
     protected $product;
 
+    /**
+     * @var int  Product price can change between order creation and payment
+     * @ORM\Column(name="price_at_order_time", type="integer")
+     */
+    protected $priceAtOrderTime;
+
     public function getOrder()
     {
         return $this->order;
@@ -42,5 +48,15 @@ class OrderPosition
     public function setProduct(Product $product)
     {
         $this->product = $product;
+    }
+
+    public function getPriceAtOrderTime()
+    {
+        return $this->priceAtOrderTime;
+    }
+
+    public function setPriceAtOrderTime(int $priceAtOrderTime)
+    {
+        $this->priceAtOrderTime = $priceAtOrderTime;
     }
 }

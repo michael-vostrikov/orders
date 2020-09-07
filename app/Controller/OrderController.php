@@ -20,21 +20,24 @@ class OrderController
     public function create(Request $request)
     {
         $productIdList = $this->getJsonRequestData($request);
-        $orderId = $this->service->create($productIdList);
+        $order = $this->service->create($productIdList);
 
-        return new JsonResponse(['id' => $orderId]);
+        return new JsonResponse(['id' => $order->getId(), 'sum' => $order->getSum()]);
     }
 
-    public function pay(int $id)
+    public function pay(Request $request, int $id)
     {
-        return new JsonResponse();
+        $data = $this->getJsonRequestData($request);
+        $this->service->pay($id, $data['sum']);
+
+        return new JsonResponse(['success' => true]);
     }
 
     protected function getJsonRequestData(Request $request)
     {
         if ($request->getContentType() === static::REQUEST_TYPE_JSON) {
             $content = $request->getContent();
-            return json_decode($content);
+            return json_decode($content, true);
         }
 
         return null;

@@ -29,7 +29,7 @@ class Order
 
     /**
      * @var OrderPosition[]
-     * @ORM\OneToMany(targetEntity="OrderPosition", mappedBy="order", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="OrderPosition", mappedBy="order", cascade={"persist"}, fetch="EAGER")
      */
     protected $orderPositions;
 
@@ -61,5 +61,19 @@ class Order
     public function addOrderPosition($orderPosition)
     {
         $this->orderPositions->add($orderPosition);
+    }
+
+    /**
+     * Get total sum of all products in the order at the moment of creation
+     * @return int
+     */
+    public function getSum()
+    {
+        $sum = 0;
+        foreach ($this->orderPositions as $orderPosition) {
+            $sum += $orderPosition->getPriceAtOrderTime();
+        }
+
+        return $sum;
     }
 }
