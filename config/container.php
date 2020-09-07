@@ -20,7 +20,8 @@ $containerBuilder->set(EntityManager::class, $entityManager);
 
 $containerBuilder->register(GeneratorService::class, GeneratorService::class)
     ->addArgument(new Reference(EntityManager::class));
-$containerBuilder->register(OrderService::class, OrderService::class);
+$containerBuilder->register(OrderService::class, OrderService::class)
+    ->addArgument(new Reference(EntityManager::class));
 
 $containerBuilder->register(GeneratorController::class, GeneratorController::class)
     ->addArgument(new Reference(GeneratorService::class));

@@ -2,17 +2,10 @@
 namespace App\Service;
 
 use App\Model\Product;
-use Doctrine\ORM\EntityManager;
 
 class GeneratorService
 {
-    /** @var EntityManager */
-    protected $entityManager;
-
-    public function __construct(EntityManager $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
+    use EntityManagerTrait;
 
     /**
      * Generates products and saves them to database
