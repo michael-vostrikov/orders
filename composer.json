@@ -1,0 +1,12 @@
+{
+    "name": "user/app",
+    "type": "project",
+    "require": {
+        "symfony/http-kernel": "^5.1",
+        "symfony/http-foundation": "^5.1",
+        "symfony/routing": "^5.1",
+        "symfony/dependency-injection": "^5.1",
+        "doctrine/orm": "^2.7",
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
