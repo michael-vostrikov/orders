@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\GeneratorService;
 
 class GeneratorController
@@ -16,6 +16,8 @@ class GeneratorController
 
     public function generateProducts()
     {
-        return new Response();
+        $this->service->generateProducts();
+
+        return new JsonResponse(['done' => true]);
     }
 }
