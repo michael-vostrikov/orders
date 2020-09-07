@@ -11,8 +11,8 @@ use App\Controller\OrderController;
 $routes = new RouteCollection();
 
 $routes->add('generator/generate',
-    (new Route('/generator/generate', [
-        '_controller' => [GeneratorController::class, 'generate'],
+    (new Route('/generator/generate-products', [
+        '_controller' => [GeneratorController::class, 'generateProducts'],
     ]))->setMethods(Request::METHOD_POST)
 );
 
